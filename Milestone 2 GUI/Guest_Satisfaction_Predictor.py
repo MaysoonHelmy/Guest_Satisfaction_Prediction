@@ -146,7 +146,7 @@ class GuestSatisfactionPredictor:
     
     def load_model_and_encoder(self):
         try:
-            model_path = "Milestone 2 GUI/random_forest_pipeline.pickle"
+            model_path = "Milestone 2 GUI/xgboost_pipeline.pickle"
             encoder_path = "Milestone 2 GUI/label_encoders.pkl"
             y_encoder_path = "Milestone 2 GUI/y_label_encoder.pkl"
 
