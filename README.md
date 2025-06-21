@@ -82,14 +82,38 @@ This project covers:
 ## 📂 Folder Structure
 
 ```
-.
-├── data/
-├── notebooks/
-├── models/
-├── results/
-├── src/
-├── README.md
-└── requirements.txt
+
+Guest_Satisfaction_Prediction
+├── Milestone 1 GUI/
+│   ├── Guest_Rating_Predictor.py       # GUI App to run the Regression model
+
+├── Milestone 1 PreProcessing/
+│   ├── Cleaned_train.csv                          # Cleaned training dataset
+│   ├── Cleaned_test.csv                           # Cleaned testing dataset
+│   ├── label_encoder_model.pkl                    # Dictionary of label encoders
+│   └── Milestone_1_Preprocessing_&_Feature_Engineering_&_Feature_Selection.ipynb                   # Notebook that contains EDA, Preprocessing, Feature Engineering, and Feature Extraction
+
+├── Milestone 1 Model Trials/
+│   ├── Milestone1_Model_Trials.ipynb         # Jupyter notebook for training/testing models
+|   ├── Cleaned_train.csv                          # Cleaned training dataset
+│   ├── Cleaned_test.csv                           # Cleaned testing dataset
+│   └── CatBoost.pickle               # Trained XGBoost model pipeline
+├── Milestone 2 GUI/
+│   ├── Guest_Satisfaction_Predictor.py       # GUI App to run the classification model
+
+├── Milestone 2 PreProcessing/
+│   ├── df_train.csv                          # Cleaned training dataset
+│   ├── df_test.csv                           # Cleaned testing dataset
+│   ├── label_encoders.pkl                    # Dictionary of label encoders
+│   └── y_label_encoder.pkl                   # Encoder for target variable
+
+├── Milestone 2 Model Trials/
+│   ├── Milestone2_Model_Trials.ipynb         # Jupyter notebook for training/testing models
+│   └── xgboost_pipeline.pickle               # Trained XGBoost model pipeline
+
+├── README.md                                  # Project documentation
+└── requirements.txt                           # Auto-generated list of required libraries
+
 ```
 
 ## 📚 Requirements
