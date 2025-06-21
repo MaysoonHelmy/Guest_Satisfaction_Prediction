@@ -8,7 +8,7 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error, r2_score
 
 # nltk resources
 nltk.download(['punkt', 'stopwords', 'wordnet'])
@@ -144,7 +144,7 @@ class GuestRatingPredictor:
         self.result_frame.pack(fill=tk.X, pady=(20, 0))
     
     def load_model_and_encoder(self):
-        model_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 1 Model Trials 2\CatBoost.pkl"
+        model_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 1 Model Trials\CatBoost.pkl"
         encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 1 PreProcessing\label_encoder_model.pkl"
 
         with open(model_path, "rb") as f:
@@ -182,12 +182,7 @@ class GuestRatingPredictor:
         text_columns = {'room_type', 'cancellation_policy'}
         for col in text_columns:
             df[col] = df[col].apply(self.preprocess_text)
-        
-        df.rename(columns={
-            'room_type': 'room_type_cleaned', 
-            'cancellation_policy': 'cancellation_policy_cleaned'
-        }, inplace=True)
-        
+  
         def parse_amenities(amenities_str):
             amenities_str = amenities_str.strip('{}')
             return [item.strip().strip('"') for item in amenities_str.split(',')]
@@ -217,7 +212,7 @@ class GuestRatingPredictor:
         df = pd.concat([df, binary_features_df], axis=1)
 
         df['nightly_price'] = df['nightly_price'].replace(r'[\$,]', '', regex=True).astype(float)
-        df['host_response_rate'] = df['host_response_rate'].str.replace('%', '').astype(float) / 100
+        df['host_response_rate'] = df['host_response_rate'].astype(str).str.replace('%', '').astype(float)
         df['host_listings_count'] = pd.to_numeric(df['host_listings_count'], errors='coerce').fillna(0)
         
         df['first_review'] = pd.to_datetime(df['first_review'], errors='coerce')
@@ -242,7 +237,7 @@ class GuestRatingPredictor:
             if col in df.columns:
                 df[col] = df[col].map(mp)
 
-        label_encode_cols = ['room_type_cleaned', 'cancellation_policy_cleaned']
+        label_encode_cols = ['room_type', 'cancellation_policy']
         for col in label_encode_cols:
             if col in df.columns and col in self.encoder.classes_:
                 df[col] = self.encoder.transform(df[col])
@@ -276,7 +271,7 @@ class GuestRatingPredictor:
             'price_value', 'host_response_power', 'host_commitment',
             'bedroom_quality', 'space_per_guest', 'essential_amenities',
             'review_consistency', 'instant_bookable', 'host_identity_verified',
-            'room_type_cleaned', 'cancellation_policy_cleaned'
+            'room_type', 'cancellation_policy'
         ]
         
         X = df_features[all_features]
@@ -321,11 +316,12 @@ class GuestRatingPredictor:
 
             self.df['review_scores_rating'] = actual_df['review_scores_rating']
 
-            # Calcualate R² Score
+            # Calcualate R² Score & MSE
             r2 = r2_score(self.df['review_scores_rating'], self.df['Predicted Rating'])
-            self.status_label.config(text=f"R² computed: {r2:.4f}", fg="green")
-            messagebox.showinfo("Regression Metric", f"R² Score: {r2:.4f}")
-
+            mse = mean_squared_error(self.df['review_scores_rating'], self.df['Predicted Rating'])
+            self.status_label.config(text=f"R²: {r2:.4f} | MSE: {mse:.4f}", fg="green")
+            messagebox.showinfo("Regression Metrics", f"R² Score: {r2:.4f}\nMean Squared Error: {mse:.4f}")
+            
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("1960x900")

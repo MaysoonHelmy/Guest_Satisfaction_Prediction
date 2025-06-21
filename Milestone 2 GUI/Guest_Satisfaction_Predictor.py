@@ -146,9 +146,9 @@ class GuestSatisfactionPredictor:
     
     def load_model_and_encoder(self):
         try:
-            model_path = "Milestone 2 GUI/xgboost_pipeline.pickle"
-            encoder_path = "Milestone 2 GUI/label_encoders.pkl"
-            y_encoder_path = "Milestone 2 GUI/y_label_encoder.pkl"
+            model_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 2 Model Trials\xgboost_pipeline.pickle"
+            encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone2\label_encoders.pkl"
+            y_encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone2\y_label_encoder.pkl"
 
             with open(model_path, "rb") as f:
                 self.model = pickle.load(f)
