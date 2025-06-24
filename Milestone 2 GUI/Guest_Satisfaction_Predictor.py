@@ -147,8 +147,8 @@ class GuestSatisfactionPredictor:
     def load_model_and_encoder(self):
         try:
             model_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 2 Model Trials\xgboost_pipeline.pickle"
-            encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone2\label_encoders.pkl"
-            y_encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone2\y_label_encoder.pkl"
+            encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 2 PreProcessing\label_encoders.pkl"
+            y_encoder_path = r"C:\Users\dell\Desktop\Guest_Satisfaction_Prediction\Milestone 2 PreProcessing\y_label_encoder.pkl"
 
             with open(model_path, "rb") as f:
                 self.model = pickle.load(f)
